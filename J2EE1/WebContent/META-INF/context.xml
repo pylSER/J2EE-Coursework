@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Resource name="jdbc/J2EE1" 
+  			auth="Container" 
+  			type="javax.sql.DataSource"
+            maxTotal="50" 
+            maxIdle="30" 
+            maxWaitMillis="10000" 
+            logAbandoned="true" 
+            username="root" 
+            password="" 
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/J2EE1?autoReconnect=true" />
+</Context>
