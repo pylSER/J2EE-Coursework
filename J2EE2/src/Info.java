@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.naming.Context;
@@ -169,10 +170,46 @@ public class Info extends HttpServlet{
 
 			
 			if(checkUser(id, psw)){
+				//check id has logined already
+				
+				ArrayList<String> idList=(ArrayList<String>) getServletContext().getAttribute("idarray");
+				
+				System.out.println(idList);
+				
+				
+				
+				if(idList.contains(id)){
+					request.setAttribute("islogined", "true");
+					
+					
+					System.out.println("this id logined");
+					
+					ServletContext application =this.getServletContext();  
+					RequestDispatcher rd = application.getRequestDispatcher("/Login?islogined=true");
+					
+					try {
+						request.setAttribute("islogined", "true");
+						rd.forward(request, response);
+						return;
+					} catch (ServletException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				
+				
+				
 				//add session
 				HttpSession session=request.getSession(true);
 				session.setAttribute("id", id);
 				session.setMaxInactiveInterval(900);// destroy after 15 min 
+				
+				idList.add(id);
+				getServletContext().setAttribute("idarray", idList);
 				
 				
 				try {

@@ -28,18 +28,19 @@ public class Login extends HttpServlet{
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response){
 		String wrongpsw=request.getParameter("wrongpsw");
-		
-		
-		
-		
-		if(wrongpsw==null){
-			loginfilepath=getServletContext().getRealPath("/")+"login.html";
+		String islogin=(String) request.getAttribute("islogined");
+
+		if(wrongpsw==null&&islogin!=null){
+			loginfilepath=getServletContext().getRealPath("/")+"logined.html";
 			//history +1,vistor +1
 			updateNum();
 			
-		}else {
+		}else if(wrongpsw==null&&islogin==null){
+			loginfilepath=getServletContext().getRealPath("/")+"login.html";
+		}else if (wrongpsw!=null&&islogin==null) {
 			loginfilepath=getServletContext().getRealPath("/")+"loginfalse.html";
-			
+		}else if (wrongpsw!=null&&islogin!=null) {
+			loginfilepath=getServletContext().getRealPath("/")+"loginfalse.html";
 		}
 		
 		response.setCharacterEncoding("UTF-8");
@@ -77,10 +78,12 @@ public class Login extends HttpServlet{
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response){
-		if(request.getParameter("wrongpsw")!=null){
+		if(request.getParameter("wrongpsw")!=null||request.getParameter("islogined")!=null){
 			doGet(request, response);
 			return;
 		}
+		
+		
 		
 		
 		

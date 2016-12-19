@@ -9,6 +9,8 @@ public class LogoutListener implements HttpSessionListener{
 		// TODO Auto-generated method stub
 		System.out.println("adding a session");
 		
+		
+		
 		addLoginNum(arg0);
 	}
 

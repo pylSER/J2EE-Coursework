@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextAttributeEvent;
@@ -67,6 +68,11 @@ public class PageCounter implements ServletContextListener,ServletContextAttribu
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		
+		ArrayList<String> list=new ArrayList<>();
+		
+		sce.getServletContext().setAttribute("idarray",list );
+		
 		try {
 			
 			counterfilepath=sce.getServletContext().getRealPath("/")+"counter.txt";
